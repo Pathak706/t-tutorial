@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar class="only-title">
+    <ion-buttons slot="start">
+      <ion-back-button
+        text=""
+        class="primary-color"
+        icon="assets/img/back.svg"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Add new timetable </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <section class="setting-sec">
+      <div class="setting-form">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Course Name</ion-label>
+              <ion-select
+                formControlName="timetable_course_name"
+                okText="Okay"
+                cancelText="Dismiss"
+                #timetale_course_batch_
+              >
+                <ion-select-option
+                  *ngFor="let item of getCourseName()"
+                  value="{{ item }}"
+                  >{{ item }}</ion-select-option
+                >
+              </ion-select>
+              <div
+                *ngIf="
+                  !registrationForm.controls.timetable_course_name.valid &&
+                  registrationFormSubmit
+                "
+                class="validator-error"
+              >
+                <p>Please Select Course Name.</p>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Course Subject</ion-label>
+              <ion-select
+                formControlName="timetable_course_subject"
+                okText="Okay"
+                cancelText="Dismiss"
+                #timetable_course_subject_
+              >
+                  <ion-select-option *ngFor="let item of getCourseSubject()" value="{{ item.id }}">{{
+                    item.course_subject
+                  }}</ion-select-option>
+              </ion-select>
+              <div
+                *ngIf="
+                  !registrationForm.controls.timetable_course_subject.valid &&
+                  registrationFormSubmit
+                "
+                class="validator-error"
+              >
+                <p>Please Select Course Subject.</p>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Faculty</ion-label>
+              <ion-select
+                formControlName="timetable_faculty"
+                okText="Okay"
+                cancelText="Dismiss"
+                #timetable_faculty_
+              >
+                <ng-container *ngFor="let item of facultyFetched">
+                  <ion-select-option value="{{ item.id }}"
+                    >{{ item.first_name }}&nbsp;{{
+                      item.last_name
+                    }}</ion-select-option
+                  >
+                </ng-container>
+              </ion-select>
+              <div
+                *ngIf="
+                  !registrationForm.controls.timetable_faculty.valid &&
+                  registrationFormSubmit
+                "
+                class="validator-error"
+              >
+                <p>Please Select Faculty.</p>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Start Time</ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                formControlName="timetable_start_time"
+                #timetable_start_time_
+              ></ion-datetime>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.timetable_start_time.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please Select Start Time.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label>End Time</ion-label>
+              <ion-datetime
+                displayFormat="HH:mm"
+                formControlName="timetable_end_time"
+                #timetable_end_time_
+              ></ion-datetime>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.timetable_end_time.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please Select End Time.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="btn-wrap">
+              <ion-button
+                shape="round"
+                style="margin-top: 2em"
+                expand="block"
+                fill="outline"
+                type="submit"
+              >
+                <ion-icon
+                  name="person-add-outline"
+                  style="margin-right: 7px"
+                ></ion-icon>
+                Add
+              </ion-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</ion-content>

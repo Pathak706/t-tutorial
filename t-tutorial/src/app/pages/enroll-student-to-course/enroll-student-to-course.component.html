@@ -1,0 +1,110 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="opacity: 1">Enroll Students To Course</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <section class="setting-sec">
+      <div class="setting-form">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Course Batch</ion-label>
+              <ion-select
+                formControlName="course_batch_select"
+                okText="Okay"
+                cancelText="Dismiss"
+                #course_batch_select_
+              >
+                <ion-select-option
+                  *ngFor="let item of getCourseName()"
+                  [value]="item"
+                  >{{ item }}</ion-select-option
+                >
+              </ion-select>
+              <div
+                *ngIf="
+                  !registrationForm.controls.course_batch_select.valid &&
+                  registrationFormSubmit
+                "
+                class="validator-error"
+              >
+                <p>Please Select Course Batch.</p>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Course Subject</ion-label>
+              <ion-select
+                formControlName="course_subject"
+                okText="Okay"
+                cancelText="Dismiss"
+                #course_subject_
+              >
+                <ion-select-option
+                  *ngFor="let item of getCourseSubject()"
+                  value="{{ item.id }}"
+                  >{{ item.course_subject }}</ion-select-option
+                >
+              </ion-select>
+              <div
+                *ngIf="
+                  !registrationForm.controls.course_subject.valid &&
+                  registrationFormSubmit
+                "
+                class="validator-error"
+              >
+                <p>Please Select Course Subject.</p>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Students</ion-label>
+              <ion-select
+                formControlName="student_select"
+                okText="Okay"
+                cancelText="Dismiss"
+                #student_selcet_
+              >
+                <ng-container *ngFor="let item of studentsFetched">
+                  <ion-select-option value="{{ item.id }}"
+                    >{{ item.first_name }}&nbsp;{{
+                      item.last_name
+                    }}</ion-select-option
+                  >
+                </ng-container>
+              </ion-select>
+              <div
+                *ngIf="
+                  !registrationForm.controls.student_select.valid &&
+                  registrationFormSubmit
+                "
+                class="validator-error"
+              >
+                <p>Please Select Student.</p>
+              </div>
+            </ion-item>
+          </div>
+          <div class="form-row">
+            <div class="btn-wrap">
+              <ion-button
+                class="btn btn-plane primary-btn"
+                type="submit"
+                #tab3_
+                id="about-btn-agree"
+                >Create
+              </ion-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</ion-content>

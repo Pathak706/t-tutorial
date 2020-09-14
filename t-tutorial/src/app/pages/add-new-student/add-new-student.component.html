@@ -1,0 +1,142 @@
+<ion-header>
+  <ion-toolbar class="only-title">
+    <ion-buttons slot="start">
+      <ion-back-button
+        text=""
+        class="primary-color"
+        icon="assets/img/back.svg"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Add new student </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <section class="setting-sec">
+      <div class="setting-form">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <ion-item>
+              <ion-label position="floating">First Name</ion-label>
+              <ion-input
+                formControlName="first_name"
+                class="text-capitalize"
+                type="text"
+                #first_name_
+                autocapitalize="words"
+              ></ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.first_name.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter First Name.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label position="floating">Last Name</ion-label>
+              <ion-input
+                formControlName="last_name"
+                class="text-capitalize"
+                type="text"
+                #last_name_
+                autocapitalize="words"
+              ></ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.last_name.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter Last Name.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                formControlName="email"
+                type="text"
+                #email_
+                autocapitalize="words"
+              >
+              </ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.email.valid && registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter Email.</p>
+            </div>
+          </div>
+          <div class="form-row" *ngIf="!editForm">
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input
+                formControlName="password"
+                type="text"
+                #password_
+                autocapitalize="words"
+              >
+              </ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.password.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter Password.</p>
+            </div>
+          </div>
+          <div class="form-row" *ngIf="!editForm">
+            <div class="btn-wrap">
+              <!-- [disabled]="!registrationForm.valid || (location.placeid == '')" -->
+              <ion-button
+                shape="round"
+                style="margin-top: 2em"
+                expand="block"
+                fill="outline"
+                type="submit"
+              >
+                <ion-icon
+                  name="person-add-outline"
+                  style="margin-right: 7px"
+                ></ion-icon>
+                Add
+              </ion-button>
+            </div>
+          </div>
+          <div class="form-row" *ngIf="editForm">
+            <div class="btn-wrap">
+              <!-- [disabled]="!registrationForm.valid || (location.placeid == '')" -->
+              <ion-button
+                shape="round"
+                style="margin-top: 2em"
+                expand="block"
+                fill="outline"
+                type="submit"
+              >
+                <ion-icon
+                  name="person-add-outline"
+                  style="margin-right: 7px"
+                ></ion-icon>
+                Update
+              </ion-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</ion-content>

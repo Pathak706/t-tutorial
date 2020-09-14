@@ -1,0 +1,52 @@
+<!-- Themes  register-flat-->
+<ion-content>
+  <ion-grid no-padding>
+    <!-- logo -->
+    <div header align-items-start align-items-stretch>
+      <img logo src="/assets/img/logo.png" />
+    </div>
+    <div content>
+      <form padding [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <h1>
+          <strong>T-Tutorial</strong>
+          Future is here
+        </h1>
+
+        <div class="form-row">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" name="email"  type="email"></ion-input>
+          </ion-item>
+          <div *ngIf="!registrationForm.controls.email.valid && registrationFormSubmit"
+              class="validator-error">
+              <p>Please enter correct email.</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password" name="password"  type="password"></ion-input>
+          </ion-item>
+          <div *ngIf="!registrationForm.controls.password.valid && registrationFormSubmit"
+              class="validator-error">
+              <p>Please enter correct password.</p>
+          </div>
+        </div>
+        <ion-button
+          shape="round"
+          style="margin-top: 2em"
+          expand="block"
+          fill="outline"
+          type="submit"
+        >
+          <ion-icon
+            name="lock-closed-outline"
+            style="margin-right: 7px"
+          ></ion-icon>
+          Login
+        </ion-button>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

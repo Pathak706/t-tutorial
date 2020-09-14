@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="opacity: 1">Time-Table</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="fetchedTimetable.length > 0">
+    <ion-list-header *ngIf="role === 3"
+      >Slide to take attandance</ion-list-header
+    >
+    <ion-list-header *ngIf="role !== 3"
+      >Slide to mark attandance</ion-list-header
+    >
+    <ion-item-sliding *ngFor="let item of fetchedTimetable; index as i">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="/assets/img/timetable.jpg" />
+        </ion-avatar>
+        <ion-label>
+          <h2>
+            {{ item.get_course.course_name }} -
+            {{ item.get_course.course_batch }}
+          </h2>
+          <h3>{{ item.get_course.course_subject }}</h3>
+          <p>{{ item.start_time_v }}- {{ item.end_time_v }}</p>
+        </ion-label>
+        <ion-checkbox
+          *ngIf="role == 1"
+          (ionChange)="updateCheckedArray($event.detail.checked, item.id)"
+        ></ion-checkbox>
+      </ion-item>
+      <!-- <ion-item-options side="end">
+        <ion-item-option (click)="takeAttendance(item)" *ngIf="role === 3"
+          >Take Attendance</ion-item-option
+        >
+        <ion-item-option (click)="markAttendance(item)" *ngIf="role !== 3"
+          >Mark Attendance</ion-item-option
+        >
+      </ion-item-options>
+      <!-- <ion-item-options side="start">
+        <ion-item-option (click)="editTimetable(item)">Edit</ion-item-option>
+      </ion-item-options> -->
+    </ion-item-sliding> -->
+  </ion-list>
+  <ion-list *ngIf="fetchedTimetable.length === 0">
+    <ion-item> No Record(s) Found ! </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="role == 1">
+    <ion-fab-button>
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="addNewTimetable()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="deleteTimetable()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

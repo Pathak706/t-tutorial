@@ -1,0 +1,245 @@
+<ion-header>
+  <ion-toolbar class="only-title">
+    <ion-buttons slot="start">
+      <ion-back-button
+        text=""
+        class="primary-color"
+        icon="assets/img/back.svg"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Add new timetable </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <section class="setting-sec">
+      <div class="setting-form">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <ion-item>
+              <ion-label>Number of Questions</ion-label>
+              <ion-select
+                formControlName="exam_question_count"
+                okText="Okay"
+                cancelText="Dismiss"
+                #exam_questions_count_
+                (ionChange)="examQuestionCounts($event)"
+              >
+                <ion-select-option
+                  *ngFor="let item of [1, 2, 3, 4, 5]"
+                  value="{{ item }}"
+                  >{{ item }}</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.exam_question_count.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Plese Select Total Question Count.</p>
+            </div>
+
+            <div class="form-row">
+              <ion-item>
+                <ion-label>Course Batch</ion-label>
+                <ion-select
+                  formControlName="exam_course_batch"
+                  okText="Okay"
+                  cancelText="Dismiss"
+                  #exam_course_batch_
+                >
+                  <ion-select-option
+                    *ngFor="let item of getCourseName()"
+                    [value]="item"
+                    >{{ item }}</ion-select-option
+                  >
+                </ion-select>
+                <div
+                  *ngIf="
+                    !registrationForm.controls.exam_course_batch.valid &&
+                    registrationFormSubmit
+                  "
+                  class="validator-error"
+                >
+                  <p>Please Select Course Batch.</p>
+                </div>
+              </ion-item>
+            </div>
+
+            <div class="form-row">
+              <ion-item>
+                <ion-label>Course Subject</ion-label>
+                <ion-select
+                  formControlName="exam_course_subject"
+                  okText="Okay"
+                  cancelText="Dismiss"
+                  #exam_course_subject_
+                >
+                  <ng-container *ngFor="let item of getCourseSubject()">
+                    <ion-select-option [value]="item.id">{{
+                      item.course_subject
+                    }}</ion-select-option>
+                  </ng-container>
+                </ion-select>
+                <div
+                  *ngIf="
+                    !registrationForm.controls.exam_course_subject.valid &&
+                    registrationFormSubmit
+                  "
+                  class="validator-error"
+                >
+                  <p>Please Select Course Subject.</p>
+                </div>
+              </ion-item>
+            </div>
+
+            <div class="form-row" *ngIf="role === 1">
+              <ion-item>
+                <ion-label>Faculty</ion-label>
+                <ion-select
+                  formControlName="exam_faculty"
+                  okText="Okay"
+                  cancelText="Dismiss"
+                  #exam_faculty_
+                >
+                  <ng-container *ngFor="let item of facultyFetched">
+                    <ion-select-option [value]="item.id"
+                      >{{ item.first_name }}&nbsp;{{ item.last_name }}
+                    </ion-select-option>
+                  </ng-container>
+                </ion-select>
+                <div
+                  *ngIf="
+                    !registrationForm.controls.exam_faculty.valid &&
+                    registrationFormSubmit
+                  "
+                  class="validator-error"
+                >
+                  <p>Please Select Faculty.</p>
+                </div>
+              </ion-item>
+            </div>
+
+            <ng-container *ngIf="isQuestionCountSet">
+              <div
+                class="form-row"
+                *ngFor="let item of getQuestionsArray(); index as inx"
+              >
+                <ion-item>
+                  <ion-label position="stacked">{{
+                    questionNumber(inx)
+                  }}</ion-label>
+                  <ion-input
+                    type="text"
+                    formControlName="{{ getQuestionControlName(inx) }}"
+                    class="text-capitalize"
+                    (ionChange)="questionChanged($event, inx)"
+                    #exam_question_
+                    autocapitalize="words"
+                  ></ion-input>
+                </ion-item>
+                <ion-list>
+                  <ion-radio-group>
+                    <ion-list-header>
+                      <ion-label> Answers </ion-label>
+                    </ion-list-header>
+
+                    <ion-item>
+                      <ion-label>A</ion-label>
+                      <ion-input
+                        class="ion_wrap"
+                        formControlName="{{ getOptionName(inx, 1) }}"
+                        type="text"
+                        #option1_
+                        (ionChange)="optionChanged($event, inx, 'A')"
+                        autocapitalize="words"
+                      >
+                      </ion-input>
+                      <ion-radio
+                        value="A"
+                        (ionBlur)="radioButtonChecked($event, inx, 1)"
+                      ></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>B</ion-label>
+                      <ion-input
+                        class="ion_wrap"
+                        formControlName="{{ getOptionName(inx, 2) }}"
+                        type="text"
+                        #option2_
+                        (ionChange)="optionChanged($event, inx, 'B')"
+                        autocapitalize="words"
+                      >
+                      </ion-input>
+                      <ion-radio
+                        value="B"
+                        (ionSelect)="radioButtonChecked($event, inx, 2)"
+                      ></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>C</ion-label>
+                      <ion-input
+                        class="ion_wrap"
+                        formControlName="{{ getOptionName(inx, 3) }}"
+                        type="text"
+                        #option3_
+                        (ionChange)="optionChanged($event, inx, 'C')"
+                        autocapitalize="words"
+                      >
+                      </ion-input>
+                      <ion-radio
+                        value="C"
+                        (ionSelect)="radioButtonChecked($event, inx, 4)"
+                      ></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-label>D</ion-label>
+                      <ion-input
+                        class="ion_wrap"
+                        formControlName="{{ getOptionName(inx, 4) }}"
+                        type="text"
+                        #option4_
+                        (ionChange)="optionChanged($event, inx, 'D')"
+                        autocapitalize="words"
+                      >
+                      </ion-input>
+                      <ion-radio
+                        value="D"
+                        (ionSelect)="radioButtonChecked($event, inx, 4)"
+                      ></ion-radio>
+                    </ion-item>
+                  </ion-radio-group>
+                </ion-list>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="form-row">
+            <div class="btn-wrap">
+              <ion-button
+                shape="round"
+                style="margin-top: 2em"
+                expand="block"
+                fill="outline"
+                type="submit"
+              >
+                <ion-icon
+                  name="person-add-outline"
+                  style="margin-right: 7px"
+                ></ion-icon>
+                Add
+              </ion-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</ion-content>

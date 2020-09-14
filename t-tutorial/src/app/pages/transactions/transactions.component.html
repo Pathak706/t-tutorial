@@ -1,0 +1,16 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="opacity: 1">Transactions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label position="floating">Payable</ion-label>
+    <ion-input (ionChange)="updatePayment($event)"></ion-input>
+  </ion-item>
+  <ion-button (click)="payWithRazor()">Pay</ion-button>
+</ion-content>

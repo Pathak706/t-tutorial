@@ -1,0 +1,7 @@
+{
+  "name": "t-tutorial",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

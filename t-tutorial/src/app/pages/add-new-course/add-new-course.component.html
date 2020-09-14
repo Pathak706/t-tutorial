@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar class="only-title">
+    <ion-buttons slot="start">
+      <ion-back-button
+        text=""
+        class="primary-color"
+        icon="assets/img/back.svg"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Add new course </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- add user student | faculty -->
+<ion-content>
+  <div class="container">
+    <section class="setting-sec">
+      <div class="setting-form">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <ion-item>
+              <ion-label position="floating">Course Name</ion-label>
+              <ion-input
+                formControlName="course_name"
+                class="text-capitalize"
+                type="text"
+                #course_name_
+                autocapitalize="words"
+              ></ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.course_name.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter Course Name.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label position="floating">Course Subject</ion-label>
+              <ion-input
+                formControlName="course_subject"
+                class="text-capitalize"
+                type="text"
+                #course_subject_
+                autocapitalize="words"
+              ></ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.course_subject.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter Course Subject.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <ion-item>
+              <ion-label position="floating">Course Batch</ion-label>
+              <ion-input
+                formControlName="course_batch"
+                type="text"
+                #course_batch_
+                autocapitalize="words"
+              >
+              </ion-input>
+            </ion-item>
+            <div
+              *ngIf="
+                !registrationForm.controls.course_batch.valid &&
+                registrationFormSubmit
+              "
+              class="validator-error"
+            >
+              <p>Please enter Course Batch.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="btn-wrap" *ngIf="!editForm">
+              <!-- [disabled]="!registrationForm.valid || (location.placeid == '')" -->
+              <ion-button
+                shape="round"
+                style="margin-top: 2em"
+                expand="block"
+                fill="outline"
+                type="submit"
+              >
+                <ion-icon
+                  name="person-add-outline"
+                  style="margin-right: 7px"
+                ></ion-icon>
+                Add
+              </ion-button>
+            </div>
+            <div class="btn-wrap" *ngIf="editForm">
+              <!-- [disabled]="!registrationForm.valid || (location.placeid == '')" -->
+              <ion-button
+                shape="round"
+                style="margin-top: 2em"
+                expand="block"
+                fill="outline"
+                type="submit"
+              >
+                <ion-icon
+                  name="person-add-outline"
+                  style="margin-right: 7px"
+                ></ion-icon>
+                Update
+              </ion-button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</ion-content>

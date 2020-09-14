@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="opacity: 1">Faculty</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="facultyFetched.length > 0">
+    <ion-list-header>Slide to See Transaction</ion-list-header>
+    <ion-item-sliding *ngFor="let item of facultyFetched; index as i">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="/assets/img/avatar.svg" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ item.first_name }}&nbsp;&nbsp;{{ item.last_name }}</h2>
+          <!-- <h3>Subject Name</h3> -->
+          <!-- <p>12:30 AM - 01:30 PM</p> -->
+        </ion-label>
+        <ion-checkbox
+          (ionChange)="updateCheckedArray($event.detail.checked, item.id)"
+        ></ion-checkbox>
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option (click)="editFaculty(item)">Edit</ion-item-option>
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option (click)="seeTransactions(item)"
+          >Transactions</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-list *ngIf="facultyFetched.length === 0">
+    <ion-item>No Record(s) Found !</ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="addNewFaculty()">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="deleteFaculty()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>

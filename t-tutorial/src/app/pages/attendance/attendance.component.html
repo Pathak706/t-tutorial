@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="opacity: 1">Attendance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-card
+  class="welcome-card"
+  *ngIf="createdCode"
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  "
+>
+  <ngx-qrcode
+    [elementType]="'img'"
+    cssClass="aclass"
+    [value]="createdCode"
+  ></ngx-qrcode>
+  <ion-card-content>
+    <p>Value:: {{ createdCode }}</p>
+    <ion-button expand="block" margin (click)="hideCode()"
+      >Colse</ion-button
+    >
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="welcome-card" *ngIf="scannedCode">
+  <ion-card-content>
+    <p>Result:: {{ scannedCode }}</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-content [fullscreen]="true" *ngIf="role === 1 && !createdCode">
+  <ion-card class="welcome-card">
+    <img src="/assets/img/barcode_scan.jpg" alt="" />
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Get Started</ion-card-subtitle> -->
+      <ion-card-title>Scan QR Code </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Here we can scan a Qr code or Barcode to get data and we will also see
+        how to generate Barcode.
+      </p>
+    </ion-card-content>
+    <ion-button expand="block" margin (click)="scanCode()"
+      >Click to scan a Qr Code</ion-button
+    >
+  </ion-card>
+  <br />
+  <ion-card class="welcome-card">
+    <img src="/assets/img/barcode_scan.jpg" alt="" />
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Get Started</ion-card-subtitle> -->
+      <ion-card-title>Generate Barcode </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Here we can scan a Qr code or Barcode to get data and we will also see
+        how to generate Barcode.
+      </p>
+      <ion-item>
+        <ion-label position="stacked">Enter Text To Generate Code</ion-label>
+        <ion-input
+          class="text-capitalize"
+          type="text"
+          (ionChange)="genCode($event)"
+        ></ion-input>
+      </ion-item>
+    </ion-card-content>
+    <ion-button expand="block" margin (click)="createCode()"
+      >Click to generate a Qr Code</ion-button
+    >
+  </ion-card>
+</ion-content>
