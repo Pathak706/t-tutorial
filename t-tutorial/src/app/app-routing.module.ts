@@ -22,7 +22,7 @@ import { AddNewTimetableComponent } from "./pages/add-new-timetable/add-new-time
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "notes",
+    redirectTo: "time-table",
     pathMatch: "full",
   },
   {

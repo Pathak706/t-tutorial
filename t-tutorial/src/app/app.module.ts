@@ -50,7 +50,6 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
     AddNewStudentComponent,
     AddNewTimetableComponent,
   ],
-  entryComponents: [],
   imports: [
     CommonModule,
     BrowserModule,

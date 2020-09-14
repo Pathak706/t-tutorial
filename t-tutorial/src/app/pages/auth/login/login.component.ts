@@ -42,7 +42,7 @@ export class LoginComponent {
   onSubmit(): void {
     this.registrationFormSubmit = true;
     if (this.registrationForm.valid) {
-      this.loader.showLoader("");
+      // this.loader.showLoader("");
       var body = {
         password: this.registrationForm.get("password").value,
         email: this.registrationForm.get("email").value,
@@ -63,12 +63,12 @@ export class LoginComponent {
             result["user"]["first_name"] + " " + result["user"]["last_name"]
           );
           this.authService.login();
-          this.loader.hideLoader();
+          // this.loader.hideLoader();
           this.router.navigate(["notes"]);
         },
         (error) => {
           console.log(error);
-          this.loader.hideLoader();
+          // this.loader.hideLoader();
           this.alertService.promptAlert("Oops...", "Check your email or password.")
         }
       );
