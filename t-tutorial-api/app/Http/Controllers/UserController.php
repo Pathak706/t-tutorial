@@ -45,7 +45,7 @@ class UserController extends Controller
             $user->first_name = $req->first_name;
             $user->last_name = $req->last_name;
             $user->email = $req->email;
-            $user->password = \Hash::make($req->passowrd);
+            $user->password = bcrypt($req->passowrd);
             $user->role = env('USER_ROLE_FACULTY', 2);
             $user->save();
 
@@ -71,7 +71,7 @@ class UserController extends Controller
             $user->first_name = $req->first_name;
             $user->last_name = $req->last_name;
             $user->email = $req->email;
-            $user->password = \Hash::make($req->passowrd);
+            $user->password = bcrypt($req->passowrd);
             $user->role = env('USER_ROLE_STUDENT', 3);
             $user->save();
 

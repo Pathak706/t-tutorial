@@ -56,7 +56,7 @@ export class FacultyComponent implements OnInit {
   deleteFaculty(): void {
     this.loader.showLoader("");
     this.api
-      .postRequest("delete-faculty", { ids: this.facultyMarked })
+      .postRequest("delete-user", { ids: this.facultyMarked })
       .subscribe(
         (res) => {
           this.loader.hideLoader();

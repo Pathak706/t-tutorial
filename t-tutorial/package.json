@@ -3,13 +3,21 @@
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
+  "main": "src/electron-starter.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron": "electron .",
+    "electron-serve": "ng build --prod && electron .",
+    "mac-release": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/assets/img/logo.png --prune=true --out=release-builds",
+    "windows-release": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=src/assets/img/logo.png --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='T Tutorial'",
+    "linux-release": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=src/assets/icon.png --prune=true --out=release-builds",
+    "mac-build": "electron-installer-dmg ./release-builds/ionic-desktop-darwin-x64/ionic-desktop.app builds/ionic-desktop",
+    "windows-build": "node src/windows-build.js"
   },
   "private": true,
   "dependencies": {
@@ -21,10 +29,12 @@
     "@angular/router": "~10.0.0",
     "@ionic-native/barcode-scanner": "^5.28.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/in-app-browser": "^5.28.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "com.razorpay.cordova": "1.4.12",
+    "cordova-android": "9.0.0",
     "ngx-qrcode2": "^9.0.0",
     "razorpay": "^2.0.6",
     "rxjs": "~6.5.5",
@@ -42,14 +52,19 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
-    "cordova-android": "^9.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-inappbrowser": "^4.0.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-windows": "^7.0.1",
+    "electron": "^10.1.1",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^15.1.0",
+    "electron-winstaller": "^4.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -77,10 +92,12 @@
       "phonegap-plugin-barcodescanner": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
-      "com.razorpay.cordova": {}
+      "com.razorpay.cordova": {},
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "browser",
+      "windows",
       "android"
     ]
   }

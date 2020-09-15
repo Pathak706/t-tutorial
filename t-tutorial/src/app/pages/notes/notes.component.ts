@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import API from "src/app/services/api.service";
+import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
 
 @Component({
   selector: "app-notes",
@@ -8,7 +9,11 @@ import API from "src/app/services/api.service";
   styleUrls: ["./notes.component.scss"],
 })
 export class NotesComponent implements OnInit {
-  constructor(public httpClint: HttpClient, private api: API) {}
+  constructor(
+    public httpClint: HttpClient,
+    private api: API,
+    private iab: InAppBrowser
+  ) {}
   notesFetched: any = [];
   file: any;
   ngOnInit() {
@@ -47,9 +52,9 @@ export class NotesComponent implements OnInit {
   }
 
   downloadFile(item): void {
-    window.open(
+    let browser = this.iab.create(
       `http://18.218.213.253/uploads/Notes/${item.file_path}`,
-      "_blank"
+      "_system"
     );
   }
 }

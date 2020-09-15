@@ -30,6 +30,8 @@ import { AddNewStudentComponent } from "./pages/add-new-student/add-new-student.
 import { AddNewTimetableComponent } from "./pages/add-new-timetable/add-new-timetable.component";
 import { NgxQRCodeModule } from "ngx-qrcode2";
 import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
+import { InAppBrowser } from "@ionic-native/in-app-browser/ngx";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +67,8 @@ import { BarcodeScanner } from "@ionic-native/barcode-scanner/ngx";
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthenticationService,
-    BarcodeScanner
+    BarcodeScanner,
+    InAppBrowser
   ],
   bootstrap: [AppComponent],
 })

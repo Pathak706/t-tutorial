@@ -56,7 +56,7 @@ export class StudentsComponent implements OnInit {
   deleteStudent(): void {
     this.loader.showLoader("");
     this.api
-      .postRequest("delete-student", { ids: this.studentMarked })
+      .postRequest("delete-user", { ids: this.studentMarked })
       .subscribe(
         (res) => {
           this.loader.hideLoader();

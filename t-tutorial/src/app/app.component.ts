@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
   styleUrls: ["app.component.scss"],
 })
 export class AppComponent implements OnInit {
+  public isAuth:boolean  = false;
   public selectedIndex = 0;
   public adminPages = [
     {
@@ -134,7 +135,7 @@ export class AppComponent implements OnInit {
       icon: "medal",
     },
     {
-      title: "Trasactions",
+      title: "Transactions",
       url: "transactions",
       icon: "cash",
     },
@@ -158,6 +159,7 @@ export class AppComponent implements OnInit {
       this.splashScreen.hide();
       this.authService.authState.subscribe((state) => {
         if (state) {
+          this.isAuth = state;
           this.router.navigate(["notes"]);
         } else {
           this.router.navigate(["login"], { skipLocationChange: true });

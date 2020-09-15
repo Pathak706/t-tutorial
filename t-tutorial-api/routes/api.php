@@ -55,7 +55,7 @@ Route::put('/edit-faculty/{id}', 'UserController@updateUser');
 Route::put('/edit-student/{id}', 'UserController@updateUser');
 
 Route::post('/delete-courses', 'CourseController@delete');
-Route::post('/delete-faculty', 'UserController@deleteUsers');
+Route::post('/delete-user', 'UserController@deleteUsers');
 Route::post('/delete-timetable', 'TimetableController@delete');
 
 Route::post('/enroll-student', 'EnrollToCourseController@enrollStudentToCourse');
